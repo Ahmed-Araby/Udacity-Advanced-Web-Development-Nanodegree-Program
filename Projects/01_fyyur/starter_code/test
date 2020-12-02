@@ -1,0 +1,6 @@
+select artist.name , venue.name , start_time
+from artist
+inner join show
+on artist.id = show.artist_id
+inner join venue
+on show.venue_id = venue.id;
