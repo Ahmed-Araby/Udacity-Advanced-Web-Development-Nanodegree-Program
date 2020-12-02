@@ -1,0 +1,7 @@
+structuring my API end points 
+
+handling CORS reuqests 
+
+unit testing 
+
+data base migrations 

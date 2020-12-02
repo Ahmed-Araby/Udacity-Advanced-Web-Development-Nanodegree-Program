@@ -1,0 +1,7 @@
+# sending  post request sing curl in windows
+curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"ahmed\"}" http://127.0.0.1:5000/books/4
+
+
+# end point -- is the handler method for a specific route.
+
+# payload is the actual message / data comming or sent in a http request / response.

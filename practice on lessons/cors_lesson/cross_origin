@@ -1,0 +1,71 @@
+we can define
+CORS(app)
+to allow cors on all routes from all
+origins
+
+or
+
+CORS('specific route, or route pattern': {"origins":"*"})
+
+
+
+or
+
+
+@cross_origin()
+before the sprcific route handler that we want to
+allo cross origin on it.
+
+
+
+cross origin sesource sharing
+is based on the policy of same origin
+
+what is the relation between CSRF and cors !??
+
+By default, submission of cookies across domains is
+disabled due to the security implications.
+
+
+Q/ What is simple requests vs non simple requests !?
+
+
+
+
+
+from flask import Flask
+from flask_cors import CORS, cross_origin
+
+app = Flask(__name__);
+#CORS(app);
+#cors = CORS(app, resources={r"/hello/*": {"origins": "*"},
+#                            "/ball/*":{"origins":["https://pythonbasics.org", "*"]}});
+#cors = CORS(app, resources = {"/ball":{"origins":"https://*"}});
+@app.route('/')
+def index():
+    return "hey man";
+
+"""
+this will write over what CORS will does
+the benefit of CORS is the ability of writing regex strings.
+simpel request
+"""
+
+#@app.after_request
+def after_request(resp):
+    print("inside after request");
+    resp.headers.add("Access-Control-Allow-Origin", "https://*");
+    return resp;
+
+@app.route('/hello', methods=['POST'])
+#@cross_origin()
+def hello():
+    return "hey dude";
+
+@app.route('/ball', methods=['POST'])
+def ball():
+    return "hey ball";
+
+#app.run(debug=True);
+
+
