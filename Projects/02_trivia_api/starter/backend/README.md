@@ -67,27 +67,246 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
+# API Reference
 
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
+## getting Started
+* Base Url: your localhost and port for flask server.
+* no Authentication, this is a simple API for learning perpouse.
 
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+## Error Handling
+this API handle (404, 500, 400, 422) errors.
+
+errors are returned as JSON objects in the following format:
 
 ```
+{
+    "success":False,
+    "status_code":500,
+    "message":"server error please try again later"
+}
+```
+error types:
+
+* 400: Bad Request (server can not deal with the format of the incomming data)
+* 500: server error (data base failure or flask server failure).
+* 422: Unprocessable Entity
+* 404: Not Found: there is no resources for the requested URL.
+
+## Endpoints
+
+NOTE: if you are using windows this json data object -d '{"searchTerm":"name"}' would be formated like this d "{\"searchTerm\":\"name\"}"
+
+GET /categories
+
+* General
+    * returns all the categories stored in the database
+    * returns the Id as key and the name of the categorie as the value
+    
+* Sample curl http://127.0.0.1:5000/categories
+
+* Response 
+
+```
+{
+    '1' : "Science",
+    '2' : "Art",
+    '3' : "Geography",
+    '4' : "History",
+    '5' : "Entertainment",
+    '6' : "Sports"
+}
+```
+
+GET /questions
+
+* General
+    * returns paginated questions, max 10 questions per page.
+    * returns total number of questions in the data base, list of at most 10 questions,
+      and list dictionary of all the categories in the data base
+    * take variable parameter that represents the front end page number
+    
+* Sample curl http://127.0.0.1:5000/questions?page=1
+
+* Response 
+
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "current_category": "",
+  "questions": [
+    {
+      "answer": "ww",
+      "category": 1,
+      "difficulty": 5,
+      "id": 27,
+      "question": "w"
+    },
+    {
+      "answer": "Ahmed",
+      "category": 2,
+      "difficulty": 5,
+      "id": 28,
+      "question": "what is your name"
+    },
+    {
+      "answer": "W",
+      "category": 1,
+      "difficulty": 1,
+      "id": 29,
+      "question": "W"
+    }
+  ],
+  "total_questions": 23
+}
+```
+
+POST /questions
+
+* General
+    * add new Question to the data base 
+    * incomming arguments are 
+        * question 
+        * answer 
+        * category
+        * difficulty
+        
+* Sample curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d '{"question":"what is your name", "answer":"Ahmed Araby", "difficulty":"5", "category":"1"}'
+
+* Response 
+
+```
+{
+  "message": "new Question with id 30 had been added successfuly",
+  "new_question_id": 30,
+  "status_code": 200,
+  "success": true
+}
+```
+
+Delete /questions/<question_id>
+
+* General
+    * delete a specific question  
+    * URL has the question id as argument.
+        
+* Sample curl -X delete http://127.0.0.1:5000/questions/6
+
+* Response 
+
+```
+{
+  "message": "question with id 6 have been deleted successfully",
+  "status_code": 200,
+  "success": true
+}
+```
+
+POST /questions/search
+
+* General
+    * search for questions that have a specific searchTerm as substring of the question body.  
+    * searchTerm is submitted in the body of the request as json object with key = searchTerm
+    * returns number of matched questions and questions obejct indictionary format.
+    
+* Sample curl -X POST http://127.0.0.1:5000/questions/search -H "Content-Type: application/json" -d '{"searchTerm":"name"}'
+
+* Response 
+
+```
+{
+  "current_category": "",
+  "questions": [
+    {
+      "answer": "Muhammad Ali",
+      "category": 4,
+      "difficulty": 1,
+      "id": 9,
+      "question": "What boxer's original name is Cassius Clay?"
+    },
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Ahmed",
+      "category": 2,
+      "difficulty": 5,
+      "id": 28,
+      "question": "what is your name"
+    }
+  ],
+  "total_questions": 3
+}
+```
+
+GET /categories/<id>/questions
+
+* General
+    * get questions that belong to a specific categorie.
+    * id of the categorie is passed as path parameter.
+        
+* Sample curl http://127.0.0.1:5000/categories/6/questions
+
+* Response 
+
+```
+{
+  "current_category": "Sports",
+  "questions": [
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }
+  ],
+  "total_questions": 2
+}
+```
+
+POST /quizzes
+
+* General
+    * get the next question for the Quiz with that has not been asked
+      before and belongs to the cetegory of the quiz.
+    * incomming areguments in the body of the request are 
+        * list of id for questios asked before 
+        * categorie of the quiz.
+        
+* Sample curl -X post http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d "{\"previous_questions\":[1, 2, 3], \"quiz_category\":{\"type\":\"all\", \"id\": 0}}"
+
+* Response 
+
+```
+{
+  "question": {
+    "answer": "Muhammad Ali",
+    "category": 4,
+    "difficulty": 1,
+    "id": 9,
+    "question": "What boxer's original name is Cassius Clay?"
+  }
+}
+```
+
 
 
 ## Testing
