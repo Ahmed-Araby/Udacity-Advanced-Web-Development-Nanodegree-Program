@@ -67,13 +67,15 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
+#API Reference
 
-# getting Started
+## getting Started
 * Base Url: your localhost and port for flask server.
 * no Authentication, this is a simple API for learning perpouse.
 
-# Error Handling
-this API handle (404, 500, 400, 422) errors 
+## Error Handling
+this API handle (404, 500, 400, 422) errors.
+
 errors are returned as JSON objects in the following format:
 
 ```
@@ -83,6 +85,15 @@ errors are returned as JSON objects in the following format:
     "message":"server error please try again later"
 }
 ```
+error types:
+
+* 400: Bad Request (server can not deal with the format of the incomming data)
+* 500: server error (data base failure or flask server failure).
+* 422: Unprocessable Entity
+* 404: Not Found: there is no resources for the requested URL.
+
+## Endpoints
+
 
 ```
 Endpoints
