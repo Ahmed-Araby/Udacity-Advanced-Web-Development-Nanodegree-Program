@@ -189,6 +189,24 @@ POST /questions
 }
 ```
 
+Delete /questions/<question_id>
+
+* General
+    * delete a specific question  
+    * URL has the question id as argument.
+        
+* Sample curl -X delete http://127.0.0.1:5000/questions/6
+
+* Response 
+
+```
+{
+  "message": "question with id 6 have been deleted successfully",
+  "status_code": 200,
+  "success": true
+}
+```
+
 
 
 ## Testing
