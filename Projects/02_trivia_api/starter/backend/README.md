@@ -95,25 +95,76 @@ error types:
 ## Endpoints
 
 
-```
-Endpoints
-GET '/categories'
-GET ...
-POST ...
-DELETE ...
+GET /categories
 
-GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
-- Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+* General
+    * returns all the categories stored in the database
+    * returns the Id as key and the name of the categorie as the value
+    
+* Sample curl http://127.0.0.1:5000/categories
+
+* Response 
 
 ```
+{
+    '1' : "Science",
+    '2' : "Art",
+    '3' : "Geography",
+    '4' : "History",
+    '5' : "Entertainment",
+    '6' : "Sports"
+}
+```
+
+GET /questions
+
+* General
+    * returns paginated questions, max 10 questions per page.
+    * returns total number of questions in the data base and list of at most 10 questions
+    * take variable parameter that represents the front end page number
+    
+* Sample curl http://127.0.0.1:5000/questions?page=1
+
+* Response 
+
+```
+{
+  "categories": {
+    "1": "Science",
+    "2": "Art",
+    "3": "Geography",
+    "4": "History",
+    "5": "Entertainment",
+    "6": "Sports"
+  },
+  "current_category": "",
+  "questions": [
+    {
+      "answer": "ww",
+      "category": 1,
+      "difficulty": 5,
+      "id": 27,
+      "question": "w"
+    },
+    {
+      "answer": "Ahmed",
+      "category": 2,
+      "difficulty": 5,
+      "id": 28,
+      "question": "what is your name"
+    },
+    {
+      "answer": "W",
+      "category": 1,
+      "difficulty": 1,
+      "id": 29,
+      "question": "W"
+    }
+  ],
+  "total_questions": 23
+}
+```
+
 
 
 ## Testing
