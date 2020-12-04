@@ -207,6 +207,46 @@ Delete /questions/<question_id>
 }
 ```
 
+POST /questions/search
+
+* General
+    * search for questions that have a specific searchTerm as substring of the question body.  
+    * searchTerm is submitted in the body of the request as json object with key = searchTerm
+    * returns number of matched questions and questions obejct indictionary format.
+    
+* Sample curl -X POST http://127.0.0.1:5000/questions/search -H "Content-Type: application/json" -d '{"searchTerm":"name"}'
+
+* Response 
+
+```
+{
+  "current_category": "",
+  "questions": [
+    {
+      "answer": "Muhammad Ali",
+      "category": 4,
+      "difficulty": 1,
+      "id": 9,
+      "question": "What boxer's original name is Cassius Clay?"
+    },
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Ahmed",
+      "category": 2,
+      "difficulty": 5,
+      "id": 28,
+      "question": "what is your name"
+    }
+  ],
+  "total_questions": 3
+}
+```
 
 
 ## Testing
