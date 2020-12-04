@@ -1,0 +1,52 @@
+Question have 
+question 
+answer 
+id 
+
+
+
+I need to take a look on the data base 
+to understand more 
+
+
+
+# notes:
+
+# to connect to psql form windows command line 
+psql -U postgres
+
+# to build a scheme from .psql file 
+psql -U postgres trivia < trivia.psql
+and trivia data base have to be alwready exist and created 
+in our data base server 
+
+# very important answer 
+https://stackoverflow.com/questions/42282385/flask-returning-404-triggers-exception-block-and-doesnt-return-not-found
+
+# sql alchemy count 
+https://stackoverflow.com/questions/10822635/get-the-number-of-rows-in-table-using-sqlalchemy
+
+# this course for data base is awsome 
+https://courses.cs.washington.edu/courses/csep544/17au/calendar/lecturelist.html
+
+# generalizing insert into flask sql Alchemy 
+https://stackoverflow.com/questions/31750441/generalised-insert-into-sqlalchemy-using-dictionary/31756880
+
+# counting the number of rows  in sql alchemy   
+https://stackoverflow.com/questions/10822635/get-the-number-of-rows-in-table-using-sqlalchemy
+# for testing 
+psql -U postgres trivia_test < trivia.psql
+
+
+# this course is good for APIs 
+https://app.pluralsight.com/course-player?clipId=5ff93a6d-eacc-49b9-aebe-9762d7ff90e1
+
+# unit of work pattern 
+https://martinfowler.com/eaaCatalog/unitOfWork.html
+https://medium.com/@martinstm/unit-of-work-net-core-652f9b6cf894
+
+# questions !! 
+
+- search for how to make backup for the data base.
+- how python was able to import files form the upper directory.
+- why import only work for files in the upper directory not the same one !!!????

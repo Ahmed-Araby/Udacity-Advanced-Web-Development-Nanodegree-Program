@@ -1,0 +1,27 @@
+1st resource --- Questions
+/questions - get    - get questions with pagination 10 Qs at most per request.  [Done]
+/questions - post   - add new question to the data base. [Done]
+/questions - Delete - delete a specific question.  [Done]
+/questions/search - POST   - search for questiosn that have a specific term submited in the body of post request. [Done]
+
+2nd resource --- categories
+/categories - get - get all categories   [Done]
+/categories/<int:id>/questions - get - get all questions of this categorie [Done]
+
+3rd virtual resource  --- Quiz 
+/quizzes --- post [Done]
+
+
+
+
+
+# testing the API with CURL 
+- test inserting new question.
+curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d "{\"question\":\"w\", \"answer\":\"ww\", \"difficulty\":\"5\", \"category\":\"1\"}"
+
+
+curl -X POST http://127.0.0.1:5000/questions/search -H "Content-Type: application/json" -d "{\"searchTerm\":\"w\"}"
+
+
+curl -X post http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d "{\"previous_questions\":[1, 2, 3], \"quiz_category\":{\"type\":\"all\", \"id\": 0}}"
+
