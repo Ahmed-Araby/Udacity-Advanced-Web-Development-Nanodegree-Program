@@ -94,6 +94,7 @@ error types:
 
 ## Endpoints
 
+NOTE: if you are using windows this json data object -d '{"searchTerm":"name"}' would be formated like this d "{\"searchTerm\":\"name\"}"
 
 GET /categories
 
@@ -247,6 +248,65 @@ POST /questions/search
   "total_questions": 3
 }
 ```
+
+GET /categories/<id>/questions
+
+* General
+    * get questions that belong to a specific categorie.
+    * id of the categorie is passed as path parameter.
+        
+* Sample curl http://127.0.0.1:5000/categories/6/questions
+
+* Response 
+
+```
+{
+  "current_category": "Sports",
+  "questions": [
+    {
+      "answer": "Brazil",
+      "category": 6,
+      "difficulty": 3,
+      "id": 10,
+      "question": "Which is the only team to play in every soccer World Cup tournament?"
+    },
+    {
+      "answer": "Uruguay",
+      "category": 6,
+      "difficulty": 4,
+      "id": 11,
+      "question": "Which country won the first ever soccer World Cup in 1930?"
+    }
+  ],
+  "total_questions": 2
+}
+```
+
+POST /quizzes
+
+* General
+    * get the next question for the Quiz with that has not been asked
+      before and belongs to the cetegory of the quiz.
+    * incomming areguments in the body of the request are 
+        * list of id for questios asked before 
+        * categorie of the quiz.
+        
+* Sample curl -X post http://127.0.0.1:5000/quizzes -H "Content-Type: application/json" -d "{\"previous_questions\":[1, 2, 3], \"quiz_category\":{\"type\":\"all\", \"id\": 0}}"
+
+* Response 
+
+```
+{
+  "question": {
+    "answer": "Muhammad Ali",
+    "category": 4,
+    "difficulty": 1,
+    "id": 9,
+    "question": "What boxer's original name is Cassius Clay?"
+  }
+}
+```
+
 
 
 ## Testing
