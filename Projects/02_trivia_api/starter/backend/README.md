@@ -67,9 +67,24 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
-```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
 
+# getting Started
+* Base Url: your localhost and port for flask server.
+* no Authentication, this is a simple API for learning perpouse.
+
+# Error Handling
+this API handle (404, 500, 400, 422) errors 
+errors are returned as JSON objects in the following format:
+
+```
+{
+    "success":False,
+    "status_code":500,
+    "message":"server error please try again later"
+}
+```
+
+```
 Endpoints
 GET '/categories'
 GET ...
