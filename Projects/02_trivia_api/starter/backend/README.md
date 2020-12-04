@@ -67,7 +67,7 @@ One note before you delve into your tasks: for each endpoint you are expected to
 9. Create error handlers for all expected errors including 400, 404, 422 and 500. 
 
 REVIEW_COMMENT
-#API Reference
+# API Reference
 
 ## getting Started
 * Base Url: your localhost and port for flask server.
