@@ -120,7 +120,8 @@ GET /questions
 
 * General
     * returns paginated questions, max 10 questions per page.
-    * returns total number of questions in the data base and list of at most 10 questions
+    * returns total number of questions in the data base, list of at most 10 questions,
+      and list dictionary of all the categories in the data base
     * take variable parameter that represents the front end page number
     
 * Sample curl http://127.0.0.1:5000/questions?page=1
@@ -162,6 +163,29 @@ GET /questions
     }
   ],
   "total_questions": 23
+}
+```
+
+POST /questions
+
+* General
+    * add new Question to the data base 
+    * incomming arguments are 
+        * question 
+        * answer 
+        * category
+        * difficulty
+        
+* Sample curl -X POST http://127.0.0.1:5000/questions -H "Content-Type: application/json" -d '{"question":"what is your name", "answer":"Ahmed Araby", "difficulty":"5", "category":"1"}'
+
+* Response 
+
+```
+{
+  "message": "new Question with id 30 had been added successfuly",
+  "new_question_id": 30,
+  "status_code": 200,
+  "success": true
 }
 ```
 
