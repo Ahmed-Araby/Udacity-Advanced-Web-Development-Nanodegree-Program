@@ -1,15 +1,15 @@
 1st resource --- Questions
-/questions - get    - get questions with pagination 10 Qs at most per request.  [Done]
-/questions - post   - add new question to the data base. [Done]
-/questions - Delete - delete a specific question.  [Done]
-/questions/search - POST   - search for questiosn that have a specific term submited in the body of post request. [Done]
+/questions - get    - get questions with pagination 10 Qs at most per request.  [Done, DOC]
+/questions - post   - add new question to the data base. [Done, DOC]
+/questions - Delete - delete a specific question.  [Done, DOC]
+/questions/search - POST   - search for questiosn that have a specific term submited in the body of post request. [Done, DOC]
 
 2nd resource --- categories
-/categories - get - get all categories   [Done]
-/categories/<int:id>/questions - get - get all questions of this categorie [Done]
+/categories - get - get all categories   [Done, DOC]
+/categories/<int:id>/questions - get - get all questions of this categorie [Done, DOC]
 
 3rd virtual resource  --- Quiz 
-/quizzes --- post [Done]
+/quizzes --- post [Done, DOC
 
 
 

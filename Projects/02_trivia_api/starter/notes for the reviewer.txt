@@ -1,0 +1,5 @@
+please note:
+1- error handlers are located in file error_handlers.py
+
+2- for the curl samples I wrote in the documentation some of them have different structure
+   than the exmples in udacity videos as I am using Windows.

@@ -85,7 +85,7 @@ def create_app(test_config=None):
             "questions": questions[startIndex:endIndex],
             "total_questions":len(questions),
             "categories":categoriesList,
-            "current_category":"I don't know what does this supposed to mean !!??"
+            "current_category":""
         });
 
     @app.route('/questions/<int:question_id>', methods=['DELETE'])
@@ -168,7 +168,7 @@ def create_app(test_config=None):
         return jsonify({
             "questions":questions,
             "total_questions":len(questions),
-            "current_category":"!!!!!!!!!!!!!! they are more than one !!!!"
+            "current_category":""
         });
 
 
@@ -220,14 +220,14 @@ def create_app(test_config=None):
                and len(data['quiz_category']) == 2):
             abort(400);
 
-        prevQuestionsIds = data.get('previous_questions', []);
-        quizCatId = data.get('quiz_category', 0)['id'];
+        prevQuestionsIds = data.get('previous_questions');
+        quizCatId = data.get('quiz_category')['id'];
 
         try:
             questionsQuery = db.session.query(Question).filter(Question.id.notin_(prevQuestionsIds));
             if quizCatId !=0: # not All category
                 questionsQuery = questionsQuery.filter(Question.category == quizCatId);
-            nextQuestion  = questionsQuery.first();
+            nextQuestion  = questionsQuery.first(); # could be None
         except:
             abort(500);
         finally:

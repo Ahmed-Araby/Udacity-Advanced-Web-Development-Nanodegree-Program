@@ -38,9 +38,8 @@ class TriviaTestCase(unittest.TestCase):
     
     def tearDown(self):
         """Executed after reach test"""
-        db.session.rollback();
-        db.session.close();
         pass
+
 
     def test_getCategories(self):
         """
@@ -95,16 +94,18 @@ class TriviaTestCase(unittest.TestCase):
         # category exist
 
         # get data from the Data base
-        catId = 3;
-        current_category = db.session.query(Category.type).filter(Category.id == catId).one_or_none()[0];
+        catId = db.session.query(Question.category).first()[0];
+        QCount= Question.query.filter(Question.category == catId).count();
+        current_category_type = db.session.query(Category.type).filter(Category.id == catId).one_or_none()[0];
+
         # get data from the API
         URL   = "/categories/{}/questions".format(catId);
         res   = self.client().get(URL);
         data  = json.loads(res.data);
 
         # assert, Hard coded !!!!!!!!!!!!!!!11
-        self.assertEqual(data['total_questions'], 3);  # only questions that belong to this category
-        self.assertEqual(current_category, data['current_category']);
+        self.assertEqual(data['total_questions'], QCount);  # only questions that belong to this category
+        self.assertEqual(current_category_type, data['current_category']);
         return ;
 
     def test_getQuestions_byCategory_notExist(self):
@@ -122,26 +123,26 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(data['success'], False);
         return;
 
-    def test_deleteQuestion(self):
+    def test_deleteQuestion(self): # this will persist in the data base
         totalQCountBefore = Question.query.count();
         qId = db.session.query(Question.id).first()[0];
 
         # delete
-        res = self.client().delete('/questions/' + str(qId));
+        res = self.client().delete('/questions/' + str(qId)); 
         data = json.loads(res.data);
         self.assertEqual(data['status_code'], 200);
 
-        # query the API
         totalQCountAfter = Question.query.count();
         self.assertEqual(totalQCountBefore, totalQCountAfter+1);
 
         return ;
-    def test_addQuestion(self):
+    def test_addQuestion(self):  # this test will affect the data base and persist on it.
         totalQCountBefore = Question.query.count();
         res = self.client().post('/questions', json={"question":"w", "answer":"ww", "difficulty":"5", "category":"1"});
         totalQCountAfter = Question.query.count();
         self.assertEqual(totalQCountAfter, totalQCountBefore + 1);
         return ;
+
 
     def test_questionsSearch(self):
         searchTerm = "%name%";
@@ -156,7 +157,15 @@ class TriviaTestCase(unittest.TestCase):
             index +=1;
         self.assertEqual(questions,data['questions']);
         return ;
-
+    def  test_quizz_question(self):
+        previous_Qs = [1 ,15, 3, 25, 7];
+        category_id = 1;   # all
+        res = self.client().post('/quizzes', json={"previous_questions":previous_Qs, "quiz_category":{"type":"--", "id":category_id}});
+        data = json.loads(res.data);
+        question = data['question'];
+        self.assertEqual(category_id, question['category']);
+        self.assertTrue(not(question['id'] in previous_Qs));
+        return ;
 
 # Make the tests conveniently executable
 if __name__ == "__main__":
