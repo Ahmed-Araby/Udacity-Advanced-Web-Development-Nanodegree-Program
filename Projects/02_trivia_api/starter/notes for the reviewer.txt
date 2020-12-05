@@ -3,3 +3,5 @@ please note:
 
 2- for the curl samples I wrote in the documentation some of them have different structure
    than the exmples in udacity videos as I am using Windows.
+
+3- API documentation is located on the readme file in the backend folder
