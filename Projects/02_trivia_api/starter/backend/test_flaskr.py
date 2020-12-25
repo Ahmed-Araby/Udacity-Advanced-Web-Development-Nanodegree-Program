@@ -21,21 +21,12 @@ class TriviaTestCase(unittest.TestCase):
 
         setUpErrorHandlers(self.app)  # add by me
 
-        self.database_name = "trivia_test"
+        """
+        # before using environment variable 
+        self.database_name = "trivia_test";
         self.database_path = "postgres://postgres:0173706505aA@{}/{}".format(
             'localhost:5432', self.database_name)
-        setup_db(self.app, self.database_path)
-
-        # binds the app to the current context
-        """
-        # I don't think that there is
-        # a use of this portion of code.
-
-        with self.app.app_context():
-            self.db = SQLAlchemy()
-            self.db.init_app(self.app)
-            # create all tables
-            self.db.create_all()
+        setup_db(self.app);
         """
 
     def tearDown(self):
