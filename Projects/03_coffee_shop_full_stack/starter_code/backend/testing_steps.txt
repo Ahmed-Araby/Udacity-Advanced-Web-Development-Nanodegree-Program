@@ -1,0 +1,70 @@
+all information given for auth should be environment variables 
+
+example code for token verification 
+https://auth0.com/docs/quickstart/backend/python/01-authorization
+
+
+theses tokens are no longer valid
+# manager valid token 
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InR2VkRSeXpjcUstaDNsdXM2T0RpUyJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtYWhtZWQudXMuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTE3NDcyNzA2MjA3NzM5MzA5OTY2IiwiYXVkIjpbImNvZmZlZSIsImh0dHBzOi8vZnNuZC1haG1lZC51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjA5MDU4Mjg1LCJleHAiOjE2MDkxNDQ2ODUsImF6cCI6InZqaDdRVXo4dGdmcElhMUc2T3RNOEhrdXQ4ZG85MUpZIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImRlbGV0ZTpkcmlua3MiLCJnZXQ6ZHJpbmtzLWRldGFpbCIsInBhdGNoOmRyaW5rcyIsInBvc3Q6ZHJpbmtzIl19.F-dfh39e2iR8fbdU9L_xBqzShMW2htjiP7BPDbw-QZGlXJFewGYiAoUkLYtHy30ub8zjINZ9pmqDSTiqUz0MwA4gOyXkwhrTt8dbal9MOsqEvS71CKOYkMo-nJBV3hX5jaHamrUCaG2qjaOcO5dNwquFV-dXFh2GVglvAY3dpGbLJ5AIAFFcNzMfBOet2uECzKrAsa2hsOUJBiMfwD12SN7WZmmKNZRYGMJ1HBUfSEHjza3fVNPB7uel2rxo4usYQJq_SF6-TF6F8WNl9xSDot6Pce11OZnLrbo24KJyxa1TTpNCu8VUadJQGO_5XwhqCNFe_IAJYROjKuF-MecA-w
+
+# barista valid token 
+eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InR2VkRSeXpjcUstaDNsdXM2T0RpUyJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtYWhtZWQudXMuYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTE1NTc1NzEwMzIxNDk2NDg0Nzc0IiwiYXVkIjpbImNvZmZlZSIsImh0dHBzOi8vZnNuZC1haG1lZC51cy5hdXRoMC5jb20vdXNlcmluZm8iXSwiaWF0IjoxNjA5MDU4Mzg4LCJleHAiOjE2MDkxNDQ3ODgsImF6cCI6InZqaDdRVXo4dGdmcElhMUc2T3RNOEhrdXQ4ZG85MUpZIiwic2NvcGUiOiJvcGVuaWQgcHJvZmlsZSBlbWFpbCIsInBlcm1pc3Npb25zIjpbImdldDpkcmlua3MtZGV0YWlsIl19.hp6oU-mmlueBN5woa0RKJg2ojZVvNLEcsKDHFL1-s4oEGle0wzuISvgsSxI_ybcTj2nhqnWxyu88QmA4GcbPIOvimXX3qWN0AYj_hllhUd5HKOlurmpZEvqEXjm63QhLnae64Ql21cIOT88986zwReBtA_vt3SpeWz3xiJb8v-Mtqk80T6gKvcg_K8CNFC45mUBjc-HvWE8KtMwLyBOqT2WjV1oeY3yNMn1uJyLlH3hdLT5IztgM_nnNcG4ppIxN8yMkhNMckdUhuoSZWaYXFttR53Q8cDNbBew0Ln0EgQhYeys5lsUX8IDX6UVkyKeEBpH9Smdg_XKVBoOQAndWLQ
+
+# testing:
+	- manager with expired token:  [******* Done  *******]
+		*** all response should be expired token response  [Done]
+
+	- manager with valid token:
+		- get empty drinks / drinks details  [Done]
+		- get exist drinks / drinks details  [Done]
+			
+		- post drinks [Done]
+		- post drinks violate unique constraint [Done]
+
+		- patch drink with empty data base [Done]
+		- patch non exist drinks [Done]
+		- patch exist drinnk  [Done]
+
+		- delete with empty data base [Done]
+		- delete non exist drink [Done]
+		- delete exist drink [Done]
+
+######################################################################################
+
+
+	- barista with out valid token:
+		*** all responses should be expired token response 
+
+	- barista with valid token 
+		- get empty drinks / details 
+		- get exist drinks / details
+
+		- all post of manger should return un authorized 
+		- all patch of manager should return un authorized 
+		- all deletee  -----------------------------------
+
+
+	
+
+Q/ is there a way to subsitute host variable automatically in postman 
+Q/ shouldn't the response status code for posting request from barista be 403 un authorized !!??
+Q/ what is the difference between token expiration and ID token expiration
+Token Expiration For Browser Flows (Seconds)  have maximum of 86400 seconds which 
+mean a day, and I get my token throw browser so I cant get 7 day valid token.
+
+
+all api tests on postman work well in individual, but when I run them as a collection 
+there is some weired error
+
+functions that  interact with the data base located in "drinksModel.py" file 
+and are called from the endPoints in "api.py" file
+
+I do recreate the data base each time the server runs from the begining.
+
+I do have seprate file for error handlers "error_handlers.py"
+
+why I need to put this line at api.py
+app.app_context().push()
+
+the front end take time to start and some times need to be stoped and restart
